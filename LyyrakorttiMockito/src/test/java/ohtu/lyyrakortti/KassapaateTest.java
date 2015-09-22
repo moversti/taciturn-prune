@@ -45,4 +45,23 @@ public class KassapaateTest {
         verify(kortti, times(1)).getSaldo();
         verify(kortti, times(0)).osta(anyInt());
     }
+    
+    /*
+    
+    kassapäätteen metodin lataa kutsu lisää lyyrakortille ladattavan rahamäärän käyttäen kortin metodia lataa jos ladattava summa on positiivinen
+    kassapäätteen metodin lataa kutsu ei tee lyyrakortille mitään jos ladattava summa on negatiivinen
+
+    */
+    
+    @Test
+    public void kortilleLadataanPositiivinenRahamaara(){
+        kassa.lataa(kortti, 20);
+        verify(kortti).lataa(eq(20));
+    }
+    
+    @Test
+    public void kortilleEiLadataNegatiivistaRahamaaraa(){
+        kassa.lataa(kortti, -20);
+        verify(kortti, times(0)).lataa(anyInt());
+    }
 }

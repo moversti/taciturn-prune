@@ -121,9 +121,9 @@ public class KauppaTest {
         // määritellään että metodi palauttaa ensimmäisellä kutsukerralla 1, toisella 2 
         // ja kolmannella 3
         when(mockViite.seruaava()).
-                thenReturn(1).
-                thenReturn(2).
-                thenReturn(3);
+                thenReturn(123).
+                thenReturn(456).
+                thenReturn(789);
 
         kauppa = new Kauppa(mockPankki, mockViite);
 
@@ -132,21 +132,21 @@ public class KauppaTest {
         kauppa.maksa("1111");
 
         // varmistetaan, että nyt käytössä ensimmäisenä pyydetty viite
-        verify(mockPankki).maksa(anyString(), anyInt(), eq(1));
+        verify(mockPankki).maksa(anyString(), anyInt(), eq(123));
         
         kauppa.aloitaOstokset();
         kauppa.lisaaOstos(1);
         kauppa.maksa("1222");
 
         // ... toisena pyydetty viite
-        verify(mockPankki).maksa(anyString(), anyInt(), eq(2));   
+        verify(mockPankki).maksa(anyString(), anyInt(), eq(456));   
         
         kauppa.aloitaOstokset();
         kauppa.lisaaOstos(1);
         kauppa.maksa("4321");
 
         // ... ja kolmantena pyydetty viite        
-        verify(mockPankki).maksa(anyString(), anyInt(), eq(3));           
+        verify(mockPankki).maksa(anyString(), anyInt(), eq(789));           
 
     }
 }
